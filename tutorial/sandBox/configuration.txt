@@ -1,0 +1,2 @@
+C:/Users/97254/Documents/Animation/EngineForAnimationCourse/tutorial/data/sphere.obj
+C:/Users/97254/Documents/Animation/EngineForAnimationCourse/tutorial/data/armadillo.obj

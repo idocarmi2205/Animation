@@ -1,0 +1,10 @@
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\EIGEN\CMAKEFILES\1940F25FA2E3579F31A8DCC1F3013554\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/eigen -BC:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/eigen --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/eigen/eigen-download.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

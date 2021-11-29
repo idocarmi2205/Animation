@@ -1,0 +1,162 @@
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/imgui
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/imgui-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-DOWNLOAD.RULE
+setlocal
+cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\external
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/tmp/imgui-download-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-UPDATE.RULE
+setlocal
+cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\external\imgui
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/tmp/imgui-download-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-PATCH.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-CONFIGURE.RULE
+setlocal
+cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\imgui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-BUILD.RULE
+setlocal
+cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\imgui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-INSTALL.RULE
+setlocal
+cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\imgui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EEEF74100D5353160F4709248BCB69F5\IMGUI-DOWNLOAD-TEST.RULE
+setlocal
+cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\imgui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\C529D6B7688FDBF543C7D22256CDBFD5\IMGUI-DOWNLOAD-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/CMakeFiles/Debug/imgui-download-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/imgui-download-prefix/src/imgui-download-stamp/Debug/imgui-download-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKEFILES\EB083021EDEFC817C1DEA924C6D8A854\IMGUI-DOWNLOAD.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\IMGUI\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui -BC:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui --check-stamp-file C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/imgui/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
