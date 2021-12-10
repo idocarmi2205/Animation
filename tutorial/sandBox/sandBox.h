@@ -11,6 +11,8 @@ class SandBox : public igl::opengl::glfw::Viewer
 public:
 	SandBox();
 	~SandBox();
+	double Xdir;
+	double Ydir;
 	void Init(const std::string& config);
 	void InitSimplification();
 	double doubleVariable;

@@ -17,6 +17,7 @@
 #include <memory>
 #include <vector>
 #include <igl/min_heap.h>
+#include <igl/AABB.h>
 
 
 // Alec: This is a mesh class containing a variety of data types (normals,
@@ -45,6 +46,7 @@ class ViewerData : public Movable
 public:
   ViewerData();
 
+  //Assignment 1 - simplification
   // Prepare array-based edge data structures and priority queue
   Eigen::VectorXi EMAP;
   Eigen::MatrixXi E, EF, EI;
@@ -55,6 +57,13 @@ public:
   Eigen::MatrixXd C;
   std::vector<Eigen::Matrix4d*> vertexCosts;
   int num_collapsed;
+
+  //Assignment 2 - Collision
+  
+  AABB<Eigen::MatrixXd, 3> tree=*(new AABB<Eigen::MatrixXd, 3>());
+  Eigen::AlignedBox<double,3> box;
+
+
 
   // Empty all fields
   IGL_INLINE void clear();

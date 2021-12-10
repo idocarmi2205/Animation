@@ -56,6 +56,18 @@ namespace igl
 				virtual Eigen::Vector3d GetCameraForward() { return Eigen::Vector3d(0, 0, -1); }
 				virtual Eigen::Vector3d GetCameraUp() { return Eigen::Vector3d(0, 1, 0); }
 
+				//assignment2 collision detection
+				bool CheckCollision(ViewerData& obj, int data1_Index, int data2_Index);
+				bool CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd, 3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d& transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index);
+				void draw_box(Eigen::AlignedBox3d& box, ViewerData &obj, Eigen::RowVector3d colors);
+
+				void init_val_mat(Eigen::MatrixXd& mat, double a[], double b[], Eigen::MatrixXd& A, Eigen::MatrixXd& B, Eigen::MatrixXd& C, Eigen::Vector4d& D);
+
+				double calculate(double x1, double x2, double x3, double y1, double y2, double y3);
+				double calculate(double x1, double x2, double y1, double y2);
+				double calculate(double x1, double x2, Eigen::Vector4d D, Eigen::VectorXd Y1, Eigen::VectorXd Y2);
+				double calculate(Eigen::Vector4d D, Eigen::VectorXd Y1);
+
 				//IGL_INLINE void init_plugins();
 				//IGL_INLINE void shutdown_plugins();
 				Viewer();
@@ -130,6 +142,7 @@ namespace igl
 				inline bool SetAnimation() { return isActive = !isActive; }
 				void initSimplification();
 				void initCosts();
+				void initTree();
 				void computeVertexMat(int vertex, std::vector<std::vector<int> > VF);
 				double computeCost(int vFirst,int vSecond,int e);
 			public:

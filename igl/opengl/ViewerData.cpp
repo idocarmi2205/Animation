@@ -38,6 +38,8 @@ IGL_INLINE igl::opengl::ViewerData::ViewerData()
   clear();
 };
 
+
+
 IGL_INLINE void igl::opengl::ViewerData::set_face_based(bool newvalue)
 {
   if (face_based != newvalue)
@@ -451,8 +453,6 @@ IGL_INLINE void igl::opengl::ViewerData::image_texture(const std::string fileNam
 	else
 		std::cout<<"can't open texture file"<<std::endl;
 
-
-
 }
 
 IGL_INLINE void igl::opengl::ViewerData::grid_texture()
@@ -727,4 +727,6 @@ IGL_INLINE void igl::opengl::ViewerData::updateGL(
       meshgl.points_F_vbo(i) = i;
     }
   }
+
 }
+

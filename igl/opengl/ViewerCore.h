@@ -210,8 +210,8 @@ namespace igl {
 		inline void deserialize(igl::opengl::ViewerCore& obj, const std::vector<char>& buffer)
 		{
 			serialization(false, obj, const_cast<std::vector<char>&>(buffer));
+		}
 	}
-}
 }
 
 #ifndef IGL_STATIC_LIBRARY

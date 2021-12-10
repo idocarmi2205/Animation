@@ -3,7 +3,7 @@
 #include "igl/collapse_edge.h"
 #include "Eigen/dense"
 #include <functional>
-
+#include <math.h>
 
 
 
@@ -19,6 +19,8 @@ void SandBox::Init(const std::string &config)
 	std::string item_name;
 	std::ifstream nameFileout;
 	doubleVariable = 0;
+	Xdir = 0;
+	Ydir = 0;
 	nameFileout.open(config);
 	if (!nameFileout.is_open())
 	{
@@ -35,9 +37,15 @@ void SandBox::Init(const std::string &config)
 			parents.push_back(-1);
 			data().add_points(Eigen::RowVector3d(0, 0, 0), Eigen::RowVector3d(0, 0, 1));
 			data().show_overlay_depth = false;
+			data().show_overlay = true;
+
 			data().point_size = 10;
 			data().line_width = 2;
+			data().MyTranslate(Eigen::Vector3d(pow((- 1),data_list.size()), 0, 0), true);
+			
+
 			data().set_visible(false, 1);
+			
 			
 
 			//initSimplification();
@@ -52,38 +60,12 @@ void SandBox::Init(const std::string &config)
 	}
 	MyTranslate(Eigen::Vector3d(0, 0, -1), true);
 	
-	data().set_colors(Eigen::RowVector3d(0.9, 0.1, 0.1));
+	data().set_colors(Eigen::RowVector3d(0.9, 0.1, 0.1));	
 
 }
 
-//void SandBox::InitSimplification()
-//{
-//	//from 703
-//	igl::edge_flaps(data().F, data().E, data().EMAP, data().EF, data().EI);
-//	data().C.resize(data().E.rows(), data().V.cols());
-//	Eigen::VectorXd costs(data().E.rows());
-//	// https://stackoverflow.com/questions/2852140/priority-queue-clear-method
-//	// Q.clear();
-//	data().Q = {};
-//	data().EQ = Eigen::VectorXi::Zero(data().E.rows());
-//	{
-//		Eigen::VectorXd costs(data().E.rows());
-//		igl::parallel_for(data().E.rows(), [&](const int e)
-//		{
-//			double cost = e;
-//			Eigen::RowVectorXd p(1, 3);
-//			igl::shortest_edge_and_midpoint(e, data().V, data().F, data().E, data().EMAP, data().EF, data().EI, cost, p);
-//			data().C.row(e) = p;
-//			costs(e) = cost;
-//		}, 10000);
-//		for (int e = 0; e < data().E.rows(); e++)
-//		{
-//			data().Q.emplace(costs(e), e, 0);
-//		}
-//	}
-//
-//	data().num_collapsed = 0;
-//}
+
+
 
 SandBox::~SandBox()
 {
@@ -125,8 +107,18 @@ void SandBox::Animate()
 {
 	if (isActive)
 	{
-		
-		
+		data().MyTranslate(Eigen::Vector3d(Xdir, Ydir, 0), true);
+
+		int currIndex = selected_data_index;
+		for (size_t i = 0; i < data_list.size() && isActive; i++)
+		{
+			if (i != currIndex) {
+				if (CheckCollision(data_list[i],currIndex, i)) {
+					isActive = !isActive;
+				}
+			}
+		}
+
 		
 	}
 }

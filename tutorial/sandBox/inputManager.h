@@ -75,7 +75,7 @@ static void glfw_mouse_scroll(GLFWwindow* window, double x, double y)
 	if(rndr->IsPicked())
 		rndr->GetScene()->data().MyScale(Eigen::Vector3d(1 + y * 0.01,1 + y * 0.01,1+y*0.01));
 	else
-		rndr->GetScene()->MyTranslate(Eigen::Vector3d(0,0, - y * 0.03),true);
+		rndr->GetScene()->MyTranslate(Eigen::Vector3d(0,0, y * 0.1),true);
 }
 
 void glfw_window_size(GLFWwindow* window, int width, int height)
@@ -165,23 +165,38 @@ static void glfw_key_callback(GLFWwindow* window, int key, int scancode, int act
 			rndr->TranslateCamera(Eigen::Vector3f(0, 0, -0.03f));
 			break;
 		case GLFW_KEY_UP:
-			rndr->TranslateCamera(Eigen::Vector3f(0, 0.01f,0));
-			break;
-		case GLFW_KEY_DOWN:
-			rndr->TranslateCamera(Eigen::Vector3f(0, -0.01f,0));
+			//rndr->TranslateCamera(Eigen::Vector3f(0, 0.01f,0));
+			scn->Ydir = 0.01;
 
 			break;
+		case GLFW_KEY_DOWN:
+			//rndr->TranslateCamera(Eigen::Vector3f(0, -0.01f,0));
+			scn->Ydir = -0.01;
+			break;
 		case GLFW_KEY_LEFT:
-				rndr->TranslateCamera(Eigen::Vector3f(-0.01f, 0,0));
+			
+				scn->Xdir = -0.01;
+	
+			//rndr->TranslateCamera(Eigen::Vector3f(-0.01f, 0,0));
 			break;
 		case GLFW_KEY_RIGHT:
-			rndr->TranslateCamera(Eigen::Vector3f(0.01f, 0, 0));
+			scn->Xdir = 0.01;
+
+			//rndr->TranslateCamera(Eigen::Vector3f(0.01f, 0, 0));
 			break;
 		case ' ':
 			printf("pressed ' '\n");
 			scn->simplify();
 			break;
-		
+		case 'c':
+		case 'C':
+			scn->isActive = !scn->isActive;
+			break;
+		case 'v':
+		case 'V':
+			scn->Xdir = 0;
+			scn->Ydir = 0;
+			break;
 		default: 
 			Eigen::Vector3f shift;
 			float scale;

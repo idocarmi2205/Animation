@@ -156,11 +156,14 @@ namespace igl
 						return false;
 					}
 
+
+
 					data().set_mesh(V, F);
 					if (UV_V.rows() > 0)
 					{
 						data().set_uv(UV_V, UV_F);
 					}
+
 
 				}
 				else
@@ -182,7 +185,9 @@ namespace igl
 				}
 
 				//initSimplification();
-				initCosts();
+				//initCosts();
+				initTree();
+
 
 				//for (unsigned int i = 0; i<plugins.size(); ++i)
 				//  if (plugins[i]->post_load())
@@ -419,10 +424,10 @@ namespace igl
 					}
 					for (int e = 0; e < data().E.rows(); e++)
 					{
-						int v1 = data().E(e,0);
+						int v1 = data().E(e, 0);
 						int v2 = data().E(e, 1);
 						//computes cost for moving vertex to v1 or v2
-						double costV1 = computeCost(v1,v2,e);
+						double costV1 = computeCost(v1, v2, e);
 						//double costV2 = computeCost(v2,v1);
 						//double costV3 = computeCost(v2, v1);
 						//if (costV1 < costV2) {
@@ -433,8 +438,8 @@ namespace igl
 						//	data().C.row(e) = data().V.row(v2);
 						//	data().Q.emplace(costV2, e, 0);
 						//}
-						
-						
+
+
 					}
 				}
 
@@ -448,11 +453,11 @@ namespace igl
 
 				for each (int f in VF[vertex]) {
 					Eigen::RowVector3d normal = data().F_normals.row(f).normalized();
-					double d = -(data().V.row(vertex) * normal.transpose())(0,0);
+					double d = -(data().V.row(vertex) * normal.transpose())(0, 0);
 					temp(0, 0) = normal.x() * normal.x();
 					temp(0, 1) = normal.x() * normal.y();
 					temp(0, 2) = normal.x() * normal.z();
-					temp(0, 3) = normal.x() *d;
+					temp(0, 3) = normal.x() * d;
 					temp(1, 0) = normal.y() * normal.x();
 					temp(1, 1) = normal.y() * normal.y();
 					temp(1, 2) = normal.y() * normal.z();
@@ -464,7 +469,7 @@ namespace igl
 					temp(3, 0) = d * normal.x();
 					temp(3, 1) = d * normal.y();
 					temp(3, 2) = d * normal.z();
-					temp(3, 3) = d*d;
+					temp(3, 3) = d * d;
 					*cost = *cost + temp;
 				}
 				//data().vertexCosts[vertex] = 5;
@@ -474,7 +479,7 @@ namespace igl
 			}
 
 			//gets 2 vertexes and computes cost of moving to the first vertex
-			double Viewer::computeCost(int vFirst,int vSecond,int e) {
+			double Viewer::computeCost(int vFirst, int vSecond, int e) {
 
 				Eigen::MatrixXd Q1 = *(data().vertexCosts[vFirst]);
 				Eigen::MatrixXd Q2 = *(data().vertexCosts[vSecond]);
@@ -508,7 +513,189 @@ namespace igl
 
 
 				return 0;
-					
+
+			}
+
+
+			void Viewer::initTree()
+			{
+				data().tree.init(data().V, data().F);
+				draw_box(data().tree.m_box, data(), Eigen::RowVector3d::Random().normalized());
+			}
+
+			bool Viewer::CheckCollision(ViewerData& obj, int data1_Index, int data2_Index)
+			{
+				//Eigen::MatrixXd A = data().GetRotation(), B = obj.GetRotation();
+				//Eigen::MatrixXd C = A.transpose() * B;
+				//Eigen::RowVectorXd C0asd= data().tree.m_box.center() , C1asd=  obj.tree.m_box.center();
+				//Eigen::Vector4d Aright(data().MakeTransd()(0, 3), data().MakeTransd()(1, 3), data().MakeTransd()(2, 3),1);
+				//Eigen::Vector4d Bright(obj.MakeTransd()(0, 3), obj.MakeTransd()(1, 3), obj.MakeTransd()(2, 3),1);
+
+				////printf("Aright (%f, %f, %f, %f)\n", Aright(0), Aright(1), Aright(2), Aright(3));
+				////printf("Bright (%f, %f, %f, %f)\n", Bright(0), Bright(1), Bright(2),Bright(3));
+				//Eigen::Vector4d C0(C0asd(0), C0asd(1), C0asd(2), 1);
+				//Eigen::Vector4d C1(C1asd(0), C1asd(1), C1asd(2), 1);
+				///*printf("C0 resize (%f, %f, %f, %f)\n", C0(0), C0(1), C0(2), C0(3));
+				//printf("C1 resize (%f, %f, %f, %f)\n", C1(0), C1(1), C1(2), C1(3));*/
+				////C0 = C0*data().MakeTransd();
+				////C1 = C1*obj.MakeTransd();
+
+				////Eigen::Vector4d D = (C1+Bright) - (C0+Aright);
+				//Eigen::Vector4d D = (obj.MakeTransd()*C1) - (data().MakeTransd()* C0);
+				////printf("D (%f, %f, %f, %f)\n", D(0), D(1), D(2), D(3));
+ 			//	double a[] = { data().tree.m_box.sizes().x()/2, data().tree.m_box.sizes().y()/2, data().tree.m_box.sizes().z()/2 };
+				//double b[] = { obj.tree.m_box.sizes().x()/2, obj.tree.m_box.sizes().y()/2, obj.tree.m_box.sizes().z()/2 };
+				//printf("a (%f, %f, %f )\n",a[0],a[1],a[2]);
+				//printf("b (%f, %f, %f )\n", b[0], b[1], b[2]);
+
+				//double R0 = 0, R1 = 0, R = 0;
+				//Eigen::MatrixXd& valMarix = Eigen::MatrixXd(15, 3);
+				//init_val_mat(valMarix, a, b, A, B, C, D);
+				//for (int i = 0; i < 15; i++) {
+				//	R0 = valMarix(i, 0);
+				//	R1 = valMarix(i, 1);
+				//	R = valMarix(i, 2);
+				//	if (R > R0 + R1) {
+				//		printf("i= %d\n", i);
+				//		return false;
+				//	}
+				//}
+				//printf("R= %f, R0 = %f, R1 = %f\n", R, R0, R1);
+				//return true;
+				Eigen::MatrixXd A = data().GetRotation(), B = obj.GetRotation();
+				return CheckCollision(data().tree, obj.tree, A, B, data().MakeTransd(), obj.MakeTransd(), data1_Index, data2_Index);
+
+			}
+
+			bool Viewer::CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd,3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d &transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index) {
+				Eigen::AlignedBox3d box1 = tree1.m_box, box2 = tree2.m_box;
+				Eigen::MatrixXd C = rot1.transpose() * rot2;
+				Eigen::RowVectorXd C0asd = box1.center(), C1asd = box2.center();
+				Eigen::Vector4d C0(C0asd(0), C0asd(1), C0asd(2), 1);
+				Eigen::Vector4d C1(C1asd(0), C1asd(1), C1asd(2), 1);
+				Eigen::Vector4d D = (transd2 * C1) - (transd1 * C0);
+				double a[] = { box1.sizes().x() / 2,box1.sizes().y() / 2, box1.sizes().z() / 2 };
+				double b[] = { box2.sizes().x() / 2, box2.sizes().y() / 2, box2.sizes().z() / 2 };
+				double R0 = 0, R1 = 0, R = 0;
+				Eigen::MatrixXd& valMarix = Eigen::MatrixXd(15, 3);
+				init_val_mat(valMarix, a, b, rot1, rot2, C, D);
+				for (int i = 0; i < 15; i++) {
+					R0 = valMarix(i, 0);
+					R1 = valMarix(i, 1);
+					R = valMarix(i, 2);
+					if (R > R0 + R1) {
+						return false;
+					}
+				}
+
+				if (tree1.is_leaf() || tree2.is_leaf()) {
+					printf("tree1 is leaf: %d, tree2 is leaf: %d\n", tree1.is_leaf(), tree2.is_leaf());
+					if (!tree1.is_leaf()) {
+						return (CheckCollision(*(tree1.m_right), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(*(tree1.m_left), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index));
+					}
+					if (!tree2.is_leaf()) {
+						return (CheckCollision(tree1, *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(tree1, *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index));
+					}
+					Eigen::RowVector3d collisionColor=Eigen::RowVector3d::Random().normalized();
+					draw_box(box1, data_list[data1_Index], collisionColor);
+					draw_box(box2, data_list[data2_Index], collisionColor);
+					return true;
+				}
+				return (CheckCollision(*(tree1.m_right), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(*(tree1.m_left), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index))
+					|| (CheckCollision(*(tree1.m_right), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(*(tree1.m_left), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index));
+			}
+
+			void Viewer::draw_box(Eigen::AlignedBox3d& box,ViewerData& obj, Eigen::RowVector3d colors) {
+				Eigen::MatrixXd V_box(8, 3);
+				V_box <<
+					box.corner(box.BottomLeftFloor)[0],
+					box.corner(box.BottomLeftFloor)[1],
+					box.corner(box.BottomLeftFloor)[2],
+					box.corner(box.BottomRightFloor)[0],
+					box.corner(box.BottomRightFloor)[1],
+					box.corner(box.BottomRightFloor)[2],
+					box.corner(box.TopLeftFloor)[0],
+					box.corner(box.TopLeftFloor)[1],
+					box.corner(box.TopLeftFloor)[2],
+					box.corner(box.TopRightFloor)[0],
+					box.corner(box.TopRightFloor)[1],
+					box.corner(box.TopRightFloor)[2],
+					box.corner(box.BottomLeftCeil)[0],
+					box.corner(box.BottomLeftCeil)[1],
+					box.corner(box.BottomLeftCeil)[2],
+					box.corner(box.BottomRightCeil)[0],
+					box.corner(box.BottomRightCeil)[1],
+					box.corner(box.BottomRightCeil)[2],
+					box.corner(box.TopLeftCeil)[0],
+					box.corner(box.TopLeftCeil)[1],
+					box.corner(box.TopLeftCeil)[2],
+					box.corner(box.TopRightCeil)[0],
+					box.corner(box.TopRightCeil)[1],
+					box.corner(box.TopRightCeil)[2];
+				obj.add_points(V_box, colors);
+
+				Eigen::MatrixXi E_box(12, 2);
+				E_box <<
+					0, 1,
+					1, 3,
+					2, 3,
+					2, 0,
+					4, 5,
+					5, 7,
+					6, 7,
+					6, 4,
+					0, 4,
+					1, 5,
+					2, 6,
+					7, 3;
+
+				for (unsigned i = 0; i < E_box.rows(); ++i)
+					obj.add_edges
+					(
+						V_box.row(E_box(i, 0)),
+						V_box.row(E_box(i, 1)),
+						colors
+					);
+			}
+
+			void Viewer::init_val_mat(Eigen::MatrixXd& mat, double a[], double b[], Eigen::MatrixXd& A, Eigen::MatrixXd& B, Eigen::MatrixXd& C, Eigen::Vector4d& D) {
+				mat(0, 0) = a[0];                                                                                  mat(0, 1) = calculate(b[0], b[1], b[2], C(0, 0), C(0, 1), C(0, 2));                 mat(0, 2) = calculate(D, A.col(0));
+				mat(1, 0) = a[1];                                                                                  mat(1, 1) = calculate(b[0], b[1], b[2], C(1, 0), C(1, 1), C(1, 2));                 mat(1, 2) = calculate(D, A.col(1));
+				mat(2, 0) = a[2];                                                                                 mat(2, 1) = calculate(b[0], b[1], b[2], C(2, 0), C(2, 1), C(2, 2));                     mat(2, 2) = calculate(D, A.col(2));
+				mat(3, 0) = calculate(a[0], a[1], a[2], C(0, 0), C(1, 0), C(2, 0));                                mat(3, 1) = b[0];                                                                   mat(3, 2) = calculate(D, B.col(0));
+				mat(4, 0) = calculate(a[0], a[1], a[2], C(0, 1), C(1, 1), C(2, 1));                               mat(4, 1) = b[1];                                                                   mat(4, 2) = calculate(D, B.col(1));
+				mat(5, 0) = calculate(a[0], a[1], a[2], C(0, 2), C(1, 2), C(2, 2));                               mat(5, 1) = b[2];                                                                    mat(5, 2) = calculate(D, B.col(2));
+				mat(6, 0) = calculate(a[1], a[2], C(2, 0), C(1, 0));                                                mat(6, 1) = calculate(b[1], b[2], C(0, 2), C(0, 1));                               mat(6, 2) = calculate(C(1, 0), C(2, 0), D, A.col(2), A.col(1));
+				mat(7, 0) = calculate(a[1], a[2], C(2, 1), C(1, 1));                                              mat(7, 1) = calculate(b[0], b[2], C(0, 2), C(0, 0));                               mat(7, 2) = calculate(C(1, 1), C(2, 1), D, A.col(2), A.col(1));
+				mat(8, 0) = calculate(a[1], a[2], C(2, 2), C(1, 2));                                              mat(8, 1) = calculate(b[0], b[1], C(0, 1), C(0, 0));                               mat(8, 2) = calculate(C(1, 2), C(2, 2), D, A.col(2), A.col(1));
+				mat(9, 0) = calculate(a[0], a[2], C(2, 0), C(0, 0));                                              mat(9, 1) = calculate(b[1], b[2], C(1, 2), C(1, 1));                               mat(9, 2) = calculate(C(2, 0), C(0, 0), D, A.col(0), A.col(2));
+				mat(10, 0) = calculate(a[0], a[2], C(2, 1), C(0, 1));                                             mat(10, 1) = calculate(b[0], b[2], C(1, 2), C(1, 0));                              mat(10, 2) = calculate(C(2, 1), C(0, 1), D, A.col(0), A.col(2));
+				mat(11, 0) = calculate(a[0], a[2], C(2, 2), C(0, 2));                                             mat(11, 1) = calculate(b[0], b[1], C(1, 1), C(1, 0));                               mat(11, 2) = calculate(C(2, 2), C(0, 2), D, A.col(0), A.col(2));
+				mat(12, 0) = calculate(a[0], a[1], C(1, 0), C(0, 0));                                             mat(12, 1) = calculate(b[1], b[2], C(2, 2), C(2, 1));                             mat(12, 2) = calculate(C(0, 0), C(1, 0), D, A.col(1), A.col(0));
+				mat(13, 0) = calculate(a[0], a[1], C(1, 1), C(0, 1));                                             mat(13, 1) = calculate(b[0], b[2], C(2, 2), C(2, 0));                                mat(13, 2) = calculate(C(0, 1), C(1, 1), D, A.col(1), A.col(0));
+				mat(14, 0) = calculate(a[0], a[1], C(1, 2), C(0, 2));                                             mat(14, 1) = calculate(b[0], b[1], C(2, 1), C(2, 0));                               mat(14, 2) = calculate(C(0, 2), C(1, 2), D, A.col(1), A.col(0));
+			}
+
+			double Viewer::calculate(double x1, double x2, double x3, double y1, double y2, double y3) {
+				return x1 * abs(y1) + x2 * abs(y2) + x3 * abs(y3);
+			}
+
+			double Viewer::calculate(double x1, double x2, double y1, double y2) {
+				return x1 * abs(y1) + x2 * abs(y2);
+			}
+
+
+			double Viewer::calculate(double x1, double x2, Eigen::Vector4d D, Eigen::VectorXd Y1, Eigen::VectorXd Y2) {
+				Y1.conservativeResize(4);
+				Y2.conservativeResize(4);
+				return abs((x1 * Y1.transpose() * D - x2 * Y2.transpose() * D).value());
+			}
+
+
+			double Viewer::calculate(Eigen::Vector4d D, Eigen::VectorXd Y1) {
+				//maybe determinanta?
+				Y1.conservativeResize(4);
+				return abs( Y1.transpose() * D);
 			}
 
 		} // end namespace

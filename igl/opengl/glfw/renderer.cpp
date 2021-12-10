@@ -73,7 +73,8 @@ IGL_INLINE void Renderer::draw( GLFWwindow* window)
 			
 			if (mesh.is_visible & core.id)
 			{// for kinematic chain change scn->MakeTrans to parent matrix
-				
+				//core.draw(scn->MakeTransScale() * scn->CalcParentsTrans(indx).cast<float>(), mesh);
+
 				core.draw(scn->MakeTransScale()*scn->CalcParentsTrans(indx).cast<float>(),mesh);
 			}
 			indx++;
@@ -179,8 +180,8 @@ void Renderer::MouseProcessing(int button)
 
 			double xToMove = -(double)xrel / core().viewport[3] * far / z * near * 2.0f * tanf(angle / 360 * M_PI) / (core().camera_zoom * core().camera_base_zoom);
 			double yToMove = (double)yrel / core().viewport[3] * far / z * near * 2.0f * tanf(angle / 360 * M_PI) / (core().camera_zoom * core().camera_base_zoom);
-			scn->TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(xToMove, 0, 0));
-			scn->TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(0, yToMove, 0));
+			scn->TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(5*xToMove, 0, 0));
+			scn->TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(0, 5*yToMove, 0));
 
 		}
 		else
