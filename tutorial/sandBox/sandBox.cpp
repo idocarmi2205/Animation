@@ -39,8 +39,6 @@ void SandBox::Init(const std::string &config)
 			data().show_overlay_depth = false;
 			data().show_overlay = true;
 
-			data().point_size = 10;
-			data().line_width = 2;
 			data().MyTranslate(Eigen::Vector3d(pow((- 1),data_list.size()), 0, 0), true);
 			
 

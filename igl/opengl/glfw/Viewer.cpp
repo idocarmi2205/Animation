@@ -187,6 +187,8 @@ namespace igl
 				//initSimplification();
 				//initCosts();
 				initTree();
+				data().point_size = 7.5;
+				data().line_width = 1.5;
 
 
 				//for (unsigned int i = 0; i<plugins.size(); ++i)
@@ -520,48 +522,11 @@ namespace igl
 			void Viewer::initTree()
 			{
 				data().tree.init(data().V, data().F);
-				draw_box(data().tree.m_box, data(), Eigen::RowVector3d::Random().normalized());
+				draw_box(data().tree.m_box, data(), Eigen::RowVector3d(1,0,0));
 			}
 
 			bool Viewer::CheckCollision(ViewerData& obj, int data1_Index, int data2_Index)
 			{
-				//Eigen::MatrixXd A = data().GetRotation(), B = obj.GetRotation();
-				//Eigen::MatrixXd C = A.transpose() * B;
-				//Eigen::RowVectorXd C0asd= data().tree.m_box.center() , C1asd=  obj.tree.m_box.center();
-				//Eigen::Vector4d Aright(data().MakeTransd()(0, 3), data().MakeTransd()(1, 3), data().MakeTransd()(2, 3),1);
-				//Eigen::Vector4d Bright(obj.MakeTransd()(0, 3), obj.MakeTransd()(1, 3), obj.MakeTransd()(2, 3),1);
-
-				////printf("Aright (%f, %f, %f, %f)\n", Aright(0), Aright(1), Aright(2), Aright(3));
-				////printf("Bright (%f, %f, %f, %f)\n", Bright(0), Bright(1), Bright(2),Bright(3));
-				//Eigen::Vector4d C0(C0asd(0), C0asd(1), C0asd(2), 1);
-				//Eigen::Vector4d C1(C1asd(0), C1asd(1), C1asd(2), 1);
-				///*printf("C0 resize (%f, %f, %f, %f)\n", C0(0), C0(1), C0(2), C0(3));
-				//printf("C1 resize (%f, %f, %f, %f)\n", C1(0), C1(1), C1(2), C1(3));*/
-				////C0 = C0*data().MakeTransd();
-				////C1 = C1*obj.MakeTransd();
-
-				////Eigen::Vector4d D = (C1+Bright) - (C0+Aright);
-				//Eigen::Vector4d D = (obj.MakeTransd()*C1) - (data().MakeTransd()* C0);
-				////printf("D (%f, %f, %f, %f)\n", D(0), D(1), D(2), D(3));
- 			//	double a[] = { data().tree.m_box.sizes().x()/2, data().tree.m_box.sizes().y()/2, data().tree.m_box.sizes().z()/2 };
-				//double b[] = { obj.tree.m_box.sizes().x()/2, obj.tree.m_box.sizes().y()/2, obj.tree.m_box.sizes().z()/2 };
-				//printf("a (%f, %f, %f )\n",a[0],a[1],a[2]);
-				//printf("b (%f, %f, %f )\n", b[0], b[1], b[2]);
-
-				//double R0 = 0, R1 = 0, R = 0;
-				//Eigen::MatrixXd& valMarix = Eigen::MatrixXd(15, 3);
-				//init_val_mat(valMarix, a, b, A, B, C, D);
-				//for (int i = 0; i < 15; i++) {
-				//	R0 = valMarix(i, 0);
-				//	R1 = valMarix(i, 1);
-				//	R = valMarix(i, 2);
-				//	if (R > R0 + R1) {
-				//		printf("i= %d\n", i);
-				//		return false;
-				//	}
-				//}
-				//printf("R= %f, R0 = %f, R1 = %f\n", R, R0, R1);
-				//return true;
 				Eigen::MatrixXd A = data().GetRotation(), B = obj.GetRotation();
 				return CheckCollision(data().tree, obj.tree, A, B, data().MakeTransd(), obj.MakeTransd(), data1_Index, data2_Index);
 
