@@ -58,7 +58,7 @@ namespace igl
 
 				//assignment2 collision detection
 				bool CheckCollision(ViewerData& obj, int data1_Index, int data2_Index);
-				bool CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd, 3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d& transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index);
+				bool CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd, 3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d& transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index, Eigen::Vector4d& D);
 				void draw_box(Eigen::AlignedBox3d& box, ViewerData &obj, Eigen::RowVector3d colors);
 
 				void init_val_mat(Eigen::MatrixXd& mat, double a[], double b[], Eigen::MatrixXd& A, Eigen::MatrixXd& B, Eigen::MatrixXd& C, Eigen::Vector4d& D);

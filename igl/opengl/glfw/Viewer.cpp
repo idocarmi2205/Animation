@@ -528,17 +528,20 @@ namespace igl
 			bool Viewer::CheckCollision(ViewerData& obj, int data1_Index, int data2_Index)
 			{
 				Eigen::MatrixXd A = data().GetRotation(), B = obj.GetRotation();
-				return CheckCollision(data().tree, obj.tree, A, B, data().MakeTransd(), obj.MakeTransd(), data1_Index, data2_Index);
+				return CheckCollision(data().tree, obj.tree, A, B, data().MakeTransd(), obj.MakeTransd(), data1_Index, data2_Index, Eigen::Vector4d(0,0,0,0));
 
 			}
 
-			bool Viewer::CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd,3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d &transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index) {
+			bool Viewer::CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd,3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d &transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index, Eigen::Vector4d& old_D) {
 				Eigen::AlignedBox3d box1 = tree1.m_box, box2 = tree2.m_box;
 				Eigen::MatrixXd C = rot1.transpose() * rot2;
 				Eigen::RowVectorXd C0asd = box1.center(), C1asd = box2.center();
 				Eigen::Vector4d C0(C0asd(0), C0asd(1), C0asd(2), 1);
 				Eigen::Vector4d C1(C1asd(0), C1asd(1), C1asd(2), 1);
 				Eigen::Vector4d D = (transd2 * C1) - (transd1 * C0);
+				if (old_D != Eigen::Vector4d(0, 0, 0, 0) && old_D.innerSize() > D.innerSize()) {
+					return false;
+				}
 				double a[] = { box1.sizes().x() / 2,box1.sizes().y() / 2, box1.sizes().z() / 2 };
 				double b[] = { box2.sizes().x() / 2, box2.sizes().y() / 2, box2.sizes().z() / 2 };
 				double R0 = 0, R1 = 0, R = 0;
@@ -556,18 +559,18 @@ namespace igl
 				if (tree1.is_leaf() || tree2.is_leaf()) {
 					printf("tree1 is leaf: %d, tree2 is leaf: %d\n", tree1.is_leaf(), tree2.is_leaf());
 					if (!tree1.is_leaf()) {
-						return (CheckCollision(*(tree1.m_right), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(*(tree1.m_left), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index));
+						return (CheckCollision(*(tree1.m_right), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index,D)) || (CheckCollision(*(tree1.m_left), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
 					}
 					if (!tree2.is_leaf()) {
-						return (CheckCollision(tree1, *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(tree1, *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index));
+						return (CheckCollision(tree1, *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D)) || (CheckCollision(tree1, *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
 					}
 					Eigen::RowVector3d collisionColor=Eigen::RowVector3d::Random().normalized();
 					draw_box(box1, data_list[data1_Index], collisionColor);
 					draw_box(box2, data_list[data2_Index], collisionColor);
 					return true;
 				}
-				return (CheckCollision(*(tree1.m_right), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(*(tree1.m_left), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index))
-					|| (CheckCollision(*(tree1.m_right), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index)) || (CheckCollision(*(tree1.m_left), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index));
+				return (CheckCollision(*(tree1.m_right), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D)) || (CheckCollision(*(tree1.m_left), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D))
+					|| (CheckCollision(*(tree1.m_right), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D)) || (CheckCollision(*(tree1.m_left), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
 			}
 
 			void Viewer::draw_box(Eigen::AlignedBox3d& box,ViewerData& obj, Eigen::RowVector3d colors) {
