@@ -21,6 +21,12 @@ private:
 	// Prepare array-based edge data structures and priority queue
 	
 	
+	void CCD();
+	void Fabrik();
+
+
+	void Collide();
+
 	void Animate();
 
 };

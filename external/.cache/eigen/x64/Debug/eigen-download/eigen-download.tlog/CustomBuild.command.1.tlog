@@ -2,7 +2,7 @@
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/eigen
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/eigen-build
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/eigen-build"
 if %errorlevel% neq 0 goto :cmEnd
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/eigen/eigen-download-prefix
 if %errorlevel% neq 0 goto :cmEnd
@@ -66,7 +66,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\EIGEN\CMAKEFILES\C55D6CBC64E6422FCF5E298C955B576D\EIGEN-DOWNLOAD-CONFIGURE.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\eigen-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\eigen-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -82,7 +82,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\EIGEN\CMAKEFILES\C55D6CBC64E6422FCF5E298C955B576D\EIGEN-DOWNLOAD-BUILD.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\eigen-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\eigen-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -98,7 +98,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\EIGEN\CMAKEFILES\C55D6CBC64E6422FCF5E298C955B576D\EIGEN-DOWNLOAD-INSTALL.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\eigen-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\eigen-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -114,7 +114,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\EIGEN\CMAKEFILES\C55D6CBC64E6422FCF5E298C955B576D\EIGEN-DOWNLOAD-TEST.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\eigen-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\eigen-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd

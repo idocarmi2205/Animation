@@ -19,11 +19,23 @@ public:
 	void RotateInSystem(Eigen::Vector3d rotAxis, double angle);
 	void MyRotate(const Eigen::Matrix3d &rot);
 	void MyScale(Eigen::Vector3d amt);
-
+	void SetCenter(Eigen::Vector3d amt);
+	Eigen::Vector3d GetCenter();
 	Eigen::Matrix3d GetRotation() const{ return Tout.rotation().matrix(); }
+
+	void RotateZByEuler(double delta);
+	void RotateXByEuler(double delta);
+	Eigen::Matrix3d buildZEuler(double delta);
+	Eigen::Matrix3d buildXEuler(double delta);
+	void initEuler();
+	void printA1();
+
+
+
 
 	virtual ~Movable() {}
 private:
 	Eigen::Affine3d Tout,Tin;
+	Eigen::Matrix3d A1, A2, A3;
 };
 

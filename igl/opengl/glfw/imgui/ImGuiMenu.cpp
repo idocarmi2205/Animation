@@ -229,22 +229,47 @@ IGL_INLINE void ImGuiMenu::draw_viewer_menu(igl::opengl::glfw::Viewer *viewer, s
     {
         int savedIndx = viewer->selected_data_index;
       viewer->open_dialog_load_mesh();
-      if (viewer->data_list.size() > viewer->parents.size())
-      {
-          viewer->parents.push_back(-1);
-          viewer->data_list.back().set_visible(false, 1);
-          viewer->data_list.back().set_visible(true, 2);
-          viewer->data_list.back().show_faces = 3;
-          viewer->selected_data_index = savedIndx;
+      //if (viewer->data_list.size() > viewer->parents.size())
+      //{
 
-          //viewer->parents.push_back(-1);
-          //viewer->data().add_points(Eigen::RowVector3d(0, 0, 0), Eigen::RowVector3d(0, 0, 1));
-          //viewer->data().show_overlay_depth = false;
-          //viewer->data().point_size = 10;
-          //viewer->data().line_width = 2;
-          //viewer->data().set_visible(false, 1);
-          viewer->initSimplification();
-      }
+      //    viewer->load_mesh_from_file("C:/Users/97254/Documents/Animation/EngineForAnimationCourse/tutorial/data/zcylinder.obj");
+
+      //   // viewer->parents.push_back(-1);
+
+
+
+      //  
+      //    //viewer->data().set_visible(false, 1);
+      //   // viewer->data_list.back().set_visible(true, 2);
+      //   // viewer->data_list.back().show_faces = 3;
+      //   // viewer->selected_data_index = savedIndx;
+
+      //    //viewer->parents.push_back(-1);
+      //    viewer->data().add_points(Eigen::RowVector3d(0, 0, 0), Eigen::RowVector3d(0, 0, 1));
+      //    viewer->data().show_overlay_depth = false;
+      //    viewer->data().show_overlay = true;
+      //    viewer->data().MyTranslate(Eigen::Vector3d(0, 0, (-1.6)), true);
+
+      //    //viewer->data().point_size = 10;
+      //    //viewer->data().line_width = 2;
+      //    viewer->data().set_visible(false, 1);
+      //    viewer->data().set_mesh(viewer->data().V, viewer->data().F);
+      //    viewer->data().set_visible(true, 2);
+      //    viewer->data().show_faces = 3;
+      //    viewer->data().set_face_based(true);
+
+      //    viewer->parents.push_back(viewer->data_list.size() - 2);
+      //    viewer->data().parentId = viewer->data_list.size() - 2;
+
+      //    viewer->data().SetCenter(Eigen::Vector3d(0, 0, 0.8));
+      //    viewer->updateTipPos();
+      //    viewer->selected_data_index = savedIndx;
+      //    viewer->initLinkAxes();
+      //    viewer->linksNum++;
+
+
+      //    //viewer->initSimplification();
+      //}
     }
     ImGui::SameLine(0, p);
     if (ImGui::Button("Save##Mesh", ImVec2((w-p)/2.f, 0)))

@@ -9,7 +9,7 @@ include(ExternalProject)
 ExternalProject_Add(eigen-download
                     TLS_VERIFY;OFF;GIT_CONFIG;advice.detachedHead=false;GIT_REPOSITORY;https://github.com/eigenteam/eigen-git-mirror.git;GIT_TAG;3.2.10
                     SOURCE_DIR          "C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/eigen"
-                    BINARY_DIR          "C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/eigen-build"
+                    BINARY_DIR          "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/eigen-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

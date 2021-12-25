@@ -56,7 +56,17 @@ namespace igl
 				virtual Eigen::Vector3d GetCameraForward() { return Eigen::Vector3d(0, 0, -1); }
 				virtual Eigen::Vector3d GetCameraUp() { return Eigen::Vector3d(0, 1, 0); }
 
+				//assignment 1 simplification
+
+				void initSimplification();
+				void initCosts();
+				void computeVertexMat(int vertex, std::vector<std::vector<int> > VF);
+				double computeCost(int vFirst, int vSecond, int e);
+
 				//assignment2 collision detection
+
+				void initTree();
+
 				bool CheckCollision(ViewerData& obj, int data1_Index, int data2_Index);
 				bool CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd, 3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d& transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index, Eigen::Vector4d& D);
 				void draw_box(Eigen::AlignedBox3d& box, ViewerData &obj, Eigen::RowVector3d colors);
@@ -67,6 +77,34 @@ namespace igl
 				double calculate(double x1, double x2, double y1, double y2);
 				double calculate(double x1, double x2, Eigen::Vector4d D, Eigen::VectorXd Y1, Eigen::VectorXd Y2);
 				double calculate(Eigen::Vector4d D, Eigen::VectorXd Y1);
+
+
+				//assignment 3 kinematic chain
+				
+				void initAxes();
+				void initLinkAxes();
+				double tipToDest();
+				void printRotation();
+				void printTip();
+				void printDest();
+				void rotateAroundY(bool clockwise);
+				void rotateAroundX(bool clockwise);
+				void CCD();
+				void updateTipPos();
+				void updateDestPos();
+				void updateLinksToTips(std::vector<Eigen::Vector4d> newPos);
+				Eigen::Matrix3d computeEulerMatrix(Eigen::Vector3d angles);
+
+				//number of links
+				int linksNum;
+				//global position of all joints
+				std::vector<Eigen::Vector4d> tipPos;
+				//global position of all joints for FABRIK
+				//std::vector<Eigen::Vector4d> ftipPos;
+				//global position of destination
+				Eigen::Vector4d destPos;
+
+
 
 				//IGL_INLINE void init_plugins();
 				//IGL_INLINE void shutdown_plugins();
@@ -140,11 +178,7 @@ namespace igl
 
 				Eigen::Matrix4d CalcParentsTrans(int indx);
 				inline bool SetAnimation() { return isActive = !isActive; }
-				void initSimplification();
-				void initCosts();
-				void initTree();
-				void computeVertexMat(int vertex, std::vector<std::vector<int> > VF);
-				double computeCost(int vFirst,int vSecond,int e);
+
 			public:
 				//////////////////////
 				// Member variables //

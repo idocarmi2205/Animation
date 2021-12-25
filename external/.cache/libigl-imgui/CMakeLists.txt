@@ -9,7 +9,7 @@ include(ExternalProject)
 ExternalProject_Add(libigl-imgui-download
                     TLS_VERIFY;OFF;GIT_CONFIG;advice.detachedHead=false;GIT_REPOSITORY;https://github.com/libigl/libigl-imgui.git;GIT_TAG;07ecd3858acc71e70f0f9b2dea20a139bdddf8ae
                     SOURCE_DIR          "C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/libigl-imgui"
-                    BINARY_DIR          "C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/libigl-imgui-build"
+                    BINARY_DIR          "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/libigl-imgui-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

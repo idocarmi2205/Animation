@@ -2,7 +2,7 @@
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/glfw
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/glfw-build
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/glfw-build"
 if %errorlevel% neq 0 goto :cmEnd
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/glfw/glfw-download-prefix
 if %errorlevel% neq 0 goto :cmEnd
@@ -66,7 +66,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\GLFW\CMAKEFILES\015A2837396DD39F19A814645939607F\GLFW-DOWNLOAD-CONFIGURE.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glfw-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glfw-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -82,7 +82,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\GLFW\CMAKEFILES\015A2837396DD39F19A814645939607F\GLFW-DOWNLOAD-BUILD.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glfw-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glfw-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -98,7 +98,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\GLFW\CMAKEFILES\015A2837396DD39F19A814645939607F\GLFW-DOWNLOAD-INSTALL.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glfw-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glfw-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -114,7 +114,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\97254\DOCUMENTS\ANIMATION\ENGINEFORANIMATIONCOURSE\EXTERNAL\.CACHE\GLFW\CMAKEFILES\015A2837396DD39F19A814645939607F\GLFW-DOWNLOAD-TEST.RULE
 setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glfw-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glfw-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd

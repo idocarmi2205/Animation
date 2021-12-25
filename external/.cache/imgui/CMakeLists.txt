@@ -9,7 +9,7 @@ include(ExternalProject)
 ExternalProject_Add(imgui-download
                     TLS_VERIFY;OFF;GIT_CONFIG;advice.detachedHead=false;GIT_REPOSITORY;https://github.com/ocornut/imgui.git;GIT_TAG;v1.69
                     SOURCE_DIR          "C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/imgui"
-                    BINARY_DIR          "C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/imgui-build"
+                    BINARY_DIR          "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/imgui-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

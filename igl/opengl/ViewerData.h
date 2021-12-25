@@ -64,6 +64,10 @@ public:
   Eigen::AlignedBox<double,3> box;
 
 
+  //Assignment 3- IK
+  int parentId;
+
+
 
   // Empty all fields
   IGL_INLINE void clear();
@@ -73,6 +77,8 @@ public:
 
   // Helpers that can draw the most common meshes
   IGL_INLINE void set_mesh(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F);
+  IGL_INLINE void set_mesh(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F, bool mouse);
+
   IGL_INLINE void set_vertices(const Eigen::MatrixXd& V);
   IGL_INLINE void set_normals(const Eigen::MatrixXd& N);
 

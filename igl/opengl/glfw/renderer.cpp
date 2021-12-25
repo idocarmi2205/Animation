@@ -158,10 +158,16 @@ void Renderer::MouseProcessing(int button)
 			Eigen::Matrix4f tmpM = core().proj;
 			double xToMove = -(double)xrel / core().viewport[3] * (z+2*near) * (far) / (far + 2*near) * 2.0 * tanf(angle / 360 * M_PI) / (core().camera_zoom * core().camera_base_zoom);
 			double yToMove = (double)yrel / core().viewport[3] *(z+2*near) * (far ) / (far+ 2*near) * 2.0 * tanf(angle / 360 * M_PI) / (core().camera_zoom * core().camera_base_zoom);
-		
-			scn->data().TranslateInSystem( scn->GetRotation(),Eigen::Vector3d(xToMove, 0, 0));
-			scn->data().TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(0, yToMove, 0));
+			if (scn->selected_data_index != 0) {
+				scn->data_list[1].TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(xToMove, 0, 0));
+				scn->data_list[1].TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(0, yToMove, 0));
+			}
+			else {
+				scn->data().TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(xToMove, 0, 0));
+				scn->data().TranslateInSystem(scn->GetRotation(), Eigen::Vector3d(0, yToMove, 0));
+			}
 			scn->WhenTranslate();
+			
 		}
 		else
 		{
@@ -169,6 +175,8 @@ void Renderer::MouseProcessing(int button)
 			scn->data().RotateInSystem(Eigen::Vector3d(0, 1, 0), xrel / 100.0);
 
 		}
+		scn->updateTipPos();
+		scn->updateDestPos();
 	}
 	else
 	{

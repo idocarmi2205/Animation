@@ -110,7 +110,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/glad
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/glad-build
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/glad/glad-download-prefix
 if %errorlevel% neq 0 goto :cmEnd
@@ -137,7 +137,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/glad
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/glad-build
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/glad/glad-download-prefix
 if %errorlevel% neq 0 goto :cmEnd
@@ -164,7 +164,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/glad
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/glad-build
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/glad/glad-download-prefix
 if %errorlevel% neq 0 goto :cmEnd
@@ -191,7 +191,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/cmake/../external/glad
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/build/glad-build
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "C:/Users/97254/Documents/Animation 2.0/EngineForAnimationCourse 4 - collision with small boxes/build/glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/glad/glad-download-prefix
 if %errorlevel% neq 0 goto :cmEnd
@@ -444,7 +444,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="C:\Users\97254\Documents\Animation\EngineForAnimationCourse\external\.cache\glad\CMakeFiles\3968ed3a93b5c1fbe1341e65e322aa62\glad-download-configure.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">No configure step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -463,7 +463,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">No configure step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -482,7 +482,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">No configure step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -501,7 +501,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">No configure step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -524,7 +524,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="C:\Users\97254\Documents\Animation\EngineForAnimationCourse\external\.cache\glad\CMakeFiles\3968ed3a93b5c1fbe1341e65e322aa62\glad-download-build.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">No build step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -543,7 +543,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">No build step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -562,7 +562,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">No build step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -581,7 +581,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">No build step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -604,7 +604,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="C:\Users\97254\Documents\Animation\EngineForAnimationCourse\external\.cache\glad\CMakeFiles\3968ed3a93b5c1fbe1341e65e322aa62\glad-download-install.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">No install step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -623,7 +623,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">No install step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -642,7 +642,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">No install step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -661,7 +661,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">No install step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -684,7 +684,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="C:\Users\97254\Documents\Animation\EngineForAnimationCourse\external\.cache\glad\CMakeFiles\3968ed3a93b5c1fbe1341e65e322aa62\glad-download-test.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">No test step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -703,7 +703,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">No test step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -722,7 +722,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">No test step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd
@@ -741,7 +741,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">No test step for 'glad-download'</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-cd C:\Users\97254\Documents\Animation\EngineForAnimationCourse\build\glad-build
+cd "C:\Users\97254\Documents\Animation 2.0\EngineForAnimationCourse 4 - collision with small boxes\build\glad-build"
 if %errorlevel% neq 0 goto :cmEnd
 C:
 if %errorlevel% neq 0 goto :cmEnd

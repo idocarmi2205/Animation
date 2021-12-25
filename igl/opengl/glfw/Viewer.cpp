@@ -129,6 +129,7 @@ namespace igl
 				}
 
 				std::string extension = mesh_file_name_string.substr(last_dot + 1);
+				std::string objName = mesh_file_name_string.substr(last_dot - 6, last_dot);
 
 				if (extension == "off" || extension == "OFF")
 				{
@@ -136,7 +137,14 @@ namespace igl
 					Eigen::MatrixXi F;
 					if (!igl::readOFF(mesh_file_name_string, V, F))
 						return false;
+
+
 					data().set_mesh(V, F);
+
+					data().set_face_based(true);
+
+					data().dirty |= MeshGL::DIRTY_UV;
+
 				}
 				else if (extension == "obj" || extension == "OBJ")
 				{
@@ -157,8 +165,16 @@ namespace igl
 					}
 
 
+					if (objName == "sphere.obj") {
+						data().set_mesh(V, F, true);
+					}
+					else if (objName == "rat_v2.obj") {
+						data().set_mesh(V, F, false);
 
-					data().set_mesh(V, F);
+					}
+					else {
+						data().set_mesh(V, F);
+					}
 					if (UV_V.rows() > 0)
 					{
 						data().set_uv(UV_V, UV_F);
@@ -174,11 +190,11 @@ namespace igl
 				}
 
 				data().compute_normals();
-				data().uniform_colors(Eigen::Vector3d(51.0 / 255.0, 43.0 / 255.0, 33.3 / 255.0),
-					Eigen::Vector3d(255.0 / 255.0, 228.0 / 255.0, 58.0 / 255.0),
-					Eigen::Vector3d(255.0 / 255.0, 235.0 / 255.0, 80.0 / 255.0));
+				//data().uniform_colors(Eigen::Vector3d(51.0 / 255.0, 43.0 / 255.0, 33.3 / 255.0),
+				//	Eigen::Vector3d(255.0 / 255.0, 228.0 / 255.0, 58.0 / 255.0),
+				//	Eigen::Vector3d(255.0 / 255.0, 235.0 / 255.0, 80.0 / 255.0));
 
-				// Alec: why?
+				 //Alec: why?
 				if (data().V_uv.rows() == 0)
 				{
 					data().grid_texture();
@@ -186,7 +202,9 @@ namespace igl
 
 				//initSimplification();
 				//initCosts();
-				initTree();
+				//initTree();
+				//initAxes();
+				//initLinkAxes();
 				data().point_size = 7.5;
 				data().line_width = 1.5;
 
@@ -275,12 +293,28 @@ namespace igl
 
 			IGL_INLINE void Viewer::open_dialog_load_mesh()
 			{
-				std::string fname = igl::file_dialog_open();
+				int savedIndx = selected_data_index;
+				load_mesh_from_file("C:/Users/97254/Documents/Animation/EngineForAnimationCourse/tutorial/data/zcylinder.obj");
+				data().add_points(Eigen::RowVector3d(0, 0, 0), Eigen::RowVector3d(0, 0, 1));
+				data().show_overlay_depth = false;
+				data().show_overlay = true;
+				data().MyTranslate(Eigen::Vector3d(0, 0, (-1.6)), true);
+				data().set_visible(false, 1);
+				data().set_mesh(data().V, data().F);
+				data().set_visible(true, 2);
+				data().show_faces = 3;
+				data().set_face_based(true);
 
-				if (fname.length() == 0)
-					return;
+				parents.push_back(data_list.size() - 2);
+				data().parentId = data_list.size() - 2;
 
-				this->load_mesh_from_file(fname.c_str());
+				data().SetCenter(Eigen::Vector3d(0, 0, 0.8));
+				data().show_texture = 3;
+				tipPos.push_back(Eigen::Vector4d(0, 0, 0, 1));
+				updateTipPos();
+				selected_data_index = savedIndx;
+				initLinkAxes();
+				linksNum++;
 			}
 
 			IGL_INLINE void Viewer::open_dialog_save_mesh()
@@ -370,12 +404,14 @@ namespace igl
 
 				for (int i = indx; parents[i] >= 0; i = parents[i])
 				{
-					//std::cout << "parent matrix:\n" << scn->data_list[scn->parents[i]].MakeTrans() << std::endl;
+					//std::cout << "parent matrix:\n" << data_list[parents[i]].MakeTransd() << std::endl;
 					prevTrans = data_list[parents[i]].MakeTransd() * prevTrans;
 				}
 
 				return prevTrans;
 			}
+
+			//Assignment 1
 
 			void Viewer::initSimplification()
 			{
@@ -518,21 +554,22 @@ namespace igl
 
 			}
 
+			//Assignment 2
 
 			void Viewer::initTree()
 			{
 				data().tree.init(data().V, data().F);
-				draw_box(data().tree.m_box, data(), Eigen::RowVector3d(1,0,0));
+				draw_box(data().tree.m_box, data(), Eigen::RowVector3d(1, 0, 0));
 			}
 
 			bool Viewer::CheckCollision(ViewerData& obj, int data1_Index, int data2_Index)
 			{
 				Eigen::MatrixXd A = data().GetRotation(), B = obj.GetRotation();
-				return CheckCollision(data().tree, obj.tree, A, B, data().MakeTransd(), obj.MakeTransd(), data1_Index, data2_Index, Eigen::Vector4d(0,0,0,0));
+				return CheckCollision(data().tree, obj.tree, A, B, data().MakeTransd(), obj.MakeTransd(), data1_Index, data2_Index, Eigen::Vector4d(0, 0, 0, 0));
 
 			}
 
-			bool Viewer::CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd,3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d &transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index, Eigen::Vector4d& old_D) {
+			bool Viewer::CheckCollision(igl::AABB<Eigen::MatrixXd, 3>& tree1, igl::AABB<Eigen::MatrixXd, 3>& tree2, Eigen::MatrixXd& rot1, Eigen::MatrixXd& rot2, Eigen::Matrix4d& transd1, Eigen::Matrix4d& transd2, int data1_Index, int data2_Index, Eigen::Vector4d& old_D) {
 				Eigen::AlignedBox3d box1 = tree1.m_box, box2 = tree2.m_box;
 				Eigen::MatrixXd C = rot1.transpose() * rot2;
 				Eigen::RowVectorXd C0asd = box1.center(), C1asd = box2.center();
@@ -559,12 +596,12 @@ namespace igl
 				if (tree1.is_leaf() || tree2.is_leaf()) {
 					printf("tree1 is leaf: %d, tree2 is leaf: %d\n", tree1.is_leaf(), tree2.is_leaf());
 					if (!tree1.is_leaf()) {
-						return (CheckCollision(*(tree1.m_right), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index,D)) || (CheckCollision(*(tree1.m_left), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
+						return (CheckCollision(*(tree1.m_right), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index, D)) || (CheckCollision(*(tree1.m_left), tree2, rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
 					}
 					if (!tree2.is_leaf()) {
 						return (CheckCollision(tree1, *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D)) || (CheckCollision(tree1, *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
 					}
-					Eigen::RowVector3d collisionColor=Eigen::RowVector3d::Random().normalized();
+					Eigen::RowVector3d collisionColor = Eigen::RowVector3d::Random().normalized();
 					draw_box(box1, data_list[data1_Index], collisionColor);
 					draw_box(box2, data_list[data2_Index], collisionColor);
 					return true;
@@ -573,7 +610,7 @@ namespace igl
 					|| (CheckCollision(*(tree1.m_right), *(tree2.m_left), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D)) || (CheckCollision(*(tree1.m_left), *(tree2.m_right), rot1, rot2, transd1, transd2, data1_Index, data2_Index, D));
 			}
 
-			void Viewer::draw_box(Eigen::AlignedBox3d& box,ViewerData& obj, Eigen::RowVector3d colors) {
+			void Viewer::draw_box(Eigen::AlignedBox3d& box, ViewerData& obj, Eigen::RowVector3d colors) {
 				Eigen::MatrixXd V_box(8, 3);
 				V_box <<
 					box.corner(box.BottomLeftFloor)[0],
@@ -627,21 +664,21 @@ namespace igl
 			}
 
 			void Viewer::init_val_mat(Eigen::MatrixXd& mat, double a[], double b[], Eigen::MatrixXd& A, Eigen::MatrixXd& B, Eigen::MatrixXd& C, Eigen::Vector4d& D) {
-				mat(0, 0) = a[0];                                                                                  mat(0, 1) = calculate(b[0], b[1], b[2], C(0, 0), C(0, 1), C(0, 2));                 mat(0, 2) = calculate(D, A.col(0));
-				mat(1, 0) = a[1];                                                                                  mat(1, 1) = calculate(b[0], b[1], b[2], C(1, 0), C(1, 1), C(1, 2));                 mat(1, 2) = calculate(D, A.col(1));
-				mat(2, 0) = a[2];                                                                                 mat(2, 1) = calculate(b[0], b[1], b[2], C(2, 0), C(2, 1), C(2, 2));                     mat(2, 2) = calculate(D, A.col(2));
-				mat(3, 0) = calculate(a[0], a[1], a[2], C(0, 0), C(1, 0), C(2, 0));                                mat(3, 1) = b[0];                                                                   mat(3, 2) = calculate(D, B.col(0));
-				mat(4, 0) = calculate(a[0], a[1], a[2], C(0, 1), C(1, 1), C(2, 1));                               mat(4, 1) = b[1];                                                                   mat(4, 2) = calculate(D, B.col(1));
-				mat(5, 0) = calculate(a[0], a[1], a[2], C(0, 2), C(1, 2), C(2, 2));                               mat(5, 1) = b[2];                                                                    mat(5, 2) = calculate(D, B.col(2));
-				mat(6, 0) = calculate(a[1], a[2], C(2, 0), C(1, 0));                                                mat(6, 1) = calculate(b[1], b[2], C(0, 2), C(0, 1));                               mat(6, 2) = calculate(C(1, 0), C(2, 0), D, A.col(2), A.col(1));
-				mat(7, 0) = calculate(a[1], a[2], C(2, 1), C(1, 1));                                              mat(7, 1) = calculate(b[0], b[2], C(0, 2), C(0, 0));                               mat(7, 2) = calculate(C(1, 1), C(2, 1), D, A.col(2), A.col(1));
-				mat(8, 0) = calculate(a[1], a[2], C(2, 2), C(1, 2));                                              mat(8, 1) = calculate(b[0], b[1], C(0, 1), C(0, 0));                               mat(8, 2) = calculate(C(1, 2), C(2, 2), D, A.col(2), A.col(1));
-				mat(9, 0) = calculate(a[0], a[2], C(2, 0), C(0, 0));                                              mat(9, 1) = calculate(b[1], b[2], C(1, 2), C(1, 1));                               mat(9, 2) = calculate(C(2, 0), C(0, 0), D, A.col(0), A.col(2));
-				mat(10, 0) = calculate(a[0], a[2], C(2, 1), C(0, 1));                                             mat(10, 1) = calculate(b[0], b[2], C(1, 2), C(1, 0));                              mat(10, 2) = calculate(C(2, 1), C(0, 1), D, A.col(0), A.col(2));
-				mat(11, 0) = calculate(a[0], a[2], C(2, 2), C(0, 2));                                             mat(11, 1) = calculate(b[0], b[1], C(1, 1), C(1, 0));                               mat(11, 2) = calculate(C(2, 2), C(0, 2), D, A.col(0), A.col(2));
-				mat(12, 0) = calculate(a[0], a[1], C(1, 0), C(0, 0));                                             mat(12, 1) = calculate(b[1], b[2], C(2, 2), C(2, 1));                             mat(12, 2) = calculate(C(0, 0), C(1, 0), D, A.col(1), A.col(0));
-				mat(13, 0) = calculate(a[0], a[1], C(1, 1), C(0, 1));                                             mat(13, 1) = calculate(b[0], b[2], C(2, 2), C(2, 0));                                mat(13, 2) = calculate(C(0, 1), C(1, 1), D, A.col(1), A.col(0));
-				mat(14, 0) = calculate(a[0], a[1], C(1, 2), C(0, 2));                                             mat(14, 1) = calculate(b[0], b[1], C(2, 1), C(2, 0));                               mat(14, 2) = calculate(C(0, 2), C(1, 2), D, A.col(1), A.col(0));
+				mat(0, 0) = a[0];                                                      mat(0, 1) = calculate(b[0], b[1], b[2], C(0, 0), C(0, 1), C(0, 2));     mat(0, 2) = calculate(D, A.col(0));
+				mat(1, 0) = a[1];                                                      mat(1, 1) = calculate(b[0], b[1], b[2], C(1, 0), C(1, 1), C(1, 2));     mat(1, 2) = calculate(D, A.col(1));
+				mat(2, 0) = a[2];                                                      mat(2, 1) = calculate(b[0], b[1], b[2], C(2, 0), C(2, 1), C(2, 2));     mat(2, 2) = calculate(D, A.col(2));
+				mat(3, 0) = calculate(a[0], a[1], a[2], C(0, 0), C(1, 0), C(2, 0));    mat(3, 1) = b[0];                                                       mat(3, 2) = calculate(D, B.col(0));
+				mat(4, 0) = calculate(a[0], a[1], a[2], C(0, 1), C(1, 1), C(2, 1));    mat(4, 1) = b[1];                                                       mat(4, 2) = calculate(D, B.col(1));
+				mat(5, 0) = calculate(a[0], a[1], a[2], C(0, 2), C(1, 2), C(2, 2));    mat(5, 1) = b[2];                                                       mat(5, 2) = calculate(D, B.col(2));
+				mat(6, 0) = calculate(a[1], a[2], C(2, 0), C(1, 0));                   mat(6, 1) = calculate(b[1], b[2], C(0, 2), C(0, 1));                    mat(6, 2) = calculate(C(1, 0), C(2, 0), D, A.col(2), A.col(1));
+				mat(7, 0) = calculate(a[1], a[2], C(2, 1), C(1, 1));                   mat(7, 1) = calculate(b[0], b[2], C(0, 2), C(0, 0));                    mat(7, 2) = calculate(C(1, 1), C(2, 1), D, A.col(2), A.col(1));
+				mat(8, 0) = calculate(a[1], a[2], C(2, 2), C(1, 2));                   mat(8, 1) = calculate(b[0], b[1], C(0, 1), C(0, 0));                    mat(8, 2) = calculate(C(1, 2), C(2, 2), D, A.col(2), A.col(1));
+				mat(9, 0) = calculate(a[0], a[2], C(2, 0), C(0, 0));                   mat(9, 1) = calculate(b[1], b[2], C(1, 2), C(1, 1));                    mat(9, 2) = calculate(C(2, 0), C(0, 0), D, A.col(0), A.col(2));
+				mat(10, 0) = calculate(a[0], a[2], C(2, 1), C(0, 1));                  mat(10, 1) = calculate(b[0], b[2], C(1, 2), C(1, 0));                   mat(10, 2) = calculate(C(2, 1), C(0, 1), D, A.col(0), A.col(2));
+				mat(11, 0) = calculate(a[0], a[2], C(2, 2), C(0, 2));                  mat(11, 1) = calculate(b[0], b[1], C(1, 1), C(1, 0));                   mat(11, 2) = calculate(C(2, 2), C(0, 2), D, A.col(0), A.col(2));
+				mat(12, 0) = calculate(a[0], a[1], C(1, 0), C(0, 0));                  mat(12, 1) = calculate(b[1], b[2], C(2, 2), C(2, 1));                   mat(12, 2) = calculate(C(0, 0), C(1, 0), D, A.col(1), A.col(0));
+				mat(13, 0) = calculate(a[0], a[1], C(1, 1), C(0, 1));                  mat(13, 1) = calculate(b[0], b[2], C(2, 2), C(2, 0));                   mat(13, 2) = calculate(C(0, 1), C(1, 1), D, A.col(1), A.col(0));
+				mat(14, 0) = calculate(a[0], a[1], C(1, 2), C(0, 2));                   mat(14, 1) = calculate(b[0], b[1], C(2, 1), C(2, 0));                  mat(14, 2) = calculate(C(0, 2), C(1, 2), D, A.col(1), A.col(0));
 			}
 
 			double Viewer::calculate(double x1, double x2, double x3, double y1, double y2, double y3) {
@@ -652,19 +689,222 @@ namespace igl
 				return x1 * abs(y1) + x2 * abs(y2);
 			}
 
-
 			double Viewer::calculate(double x1, double x2, Eigen::Vector4d D, Eigen::VectorXd Y1, Eigen::VectorXd Y2) {
 				Y1.conservativeResize(4);
 				Y2.conservativeResize(4);
 				return abs((x1 * Y1.transpose() * D - x2 * Y2.transpose() * D).value());
 			}
 
-
 			double Viewer::calculate(Eigen::Vector4d D, Eigen::VectorXd Y1) {
 				//maybe determinanta?
 				Y1.conservativeResize(4);
-				return abs( Y1.transpose() * D);
+				return abs(Y1.transpose() * D);
 			}
+
+			//Assignment 3
+
+			void Viewer::initAxes() {
+
+				Eigen::MatrixXd V_box(6, 3);
+				V_box <<
+					1.6, 0, 0,
+					-1.6, 0, 0,
+					0, 1.6, 0,
+					0, -1.6, 0,
+					0, 0, 1.6,
+					0, 0, -1.6;
+
+				data().add_points(V_box, Eigen::RowVector3d(1, 0, 0));
+
+
+				Eigen::MatrixXi E_box(3, 2);
+				E_box <<
+					0, 1,
+					2, 3,
+					4, 5;
+
+				for (unsigned i = 0; i < E_box.rows(); ++i)
+					data().add_edges
+					(
+						V_box.row(E_box(i, 0)),
+						V_box.row(E_box(i, 1)),
+						Eigen::RowVector3d(1, 0, 0)
+					);
+			}
+
+			void Viewer::initLinkAxes() {
+
+				Eigen::MatrixXd V_box(6, 3);
+				V_box <<
+					0.8, 0, -0.8,
+					-0.8, 0, -0.8,
+					0, 0.8, -0.8,
+					0, -0.8, -0.8,
+					0, 0, -0.8,
+					0, 0, -2.4;
+
+				data().add_points(V_box, Eigen::RowVector3d(0, 0, 1));
+
+
+				Eigen::MatrixXi E_box(3, 2);
+				E_box <<
+					0, 1,
+					2, 3,
+					4, 5;
+
+				for (unsigned i = 0; i < E_box.rows(); ++i)
+					data().add_edges
+					(
+						V_box.row(E_box(i, 0)),
+						V_box.row(E_box(i, 1)),
+						Eigen::RowVector3d(0, 0, 1)
+					);
+			}
+
+			void Viewer::printRotation() {
+				Eigen::Matrix3d rotMat;
+				if (isPicked || selected_data_index == 0) {
+					printf("scene rotation matrix:\n");
+					rotMat = GetRotation();
+				}
+				else {
+					printf("link %d rotation matrix:\n", selected_data_index);
+					rotMat = data().GetRotation();
+				}
+				for (int i = 0; i < 3; i++) {
+					printf("(%f\t%f\t%f)\n", rotMat(i, 0), rotMat(i, 1), rotMat(i, 2));
+				}
+			}
+
+			void Viewer::printTip() {
+				for (size_t i = 0; i < tipPos.size(); i++)
+				{
+					if (i != 0) {
+						printf("tip position %d: (%f,%f,%f) \n", i, tipPos[i](0), tipPos[i](1), tipPos[i](2));
+					}
+					else {
+						printf("base position: (%f,%f,%f) \n", tipPos[i](0), tipPos[i](1), tipPos[i](2));
+					}
+				}
+			}
+
+			//if stuck maybe improve efficiency
+			void Viewer::updateTipPos() {
+				Eigen::Vector3d c =data_list[1].GetCenter();
+				Eigen::Vector4d center(c.x(), c.y(), c.z(), 1);
+				Eigen::Matrix3d rot= Eigen::Matrix3d().Identity();
+
+				//Eigen::Vector3d O = (data_list[1].MakeTransd() *  center).head(3);
+
+				//Eigen::Vector4d O = (data_list[1].MakeTransd() * Eigen::Vector4d(0, 0, 0, 1));
+				Eigen::Vector4d O = data_list[1].MakeTransd()* center - Eigen::Vector4d(0, 0, 0.8, 0);
+				tipPos[0] = O;
+				for (int i = 1; i < data_list.size(); i++) {
+					rot = rot * data_list[i].GetRotation() ;
+					//for (int j = i - 1; j > 0; j--)
+					//	rot = data_list[j].GetRotation() * rot;
+					Eigen::Vector3d tmp = (rot * Eigen::Vector3d(0, 0, -1.6));
+					O = O + Eigen::Vector4d(tmp(0), tmp(1), tmp(2), 0);
+					tipPos[i] = O;
+				}
+				//tipPos[0] = data_list[1].MakeTransd()* data_list[1].MakeTransd() * tipPos[1];
+				//for (int i = 1; i < data_list.size(); i++) {
+				//	tipPos[i] = CalcParentsTrans(i)* data_list[i].MakeTransd() * tipPos[i-1];
+				//}
+			}
+
+			void Viewer::updateDestPos() {
+				destPos = (data_list[0].MakeTransd() * Eigen::Vector4d(0, 0, 0, 1));
+			}
+
+			void Viewer::printDest() {
+				printf("destination position: (%f,%f,%f) \n", destPos(0), destPos(1), destPos(2));
+			}
+
+			void Viewer::updateLinksToTips(std::vector<Eigen::Vector4d> newPos) {
+				double angle,A;
+				Eigen::Vector4d currVec;
+				Eigen::Vector4d newVec;
+				Eigen::Vector4d rotationVector;
+				for (int i = 0; i < linksNum; i++)
+				{
+					currVec = tipPos[i + 1] - tipPos[i];
+					newVec = newPos[i + 1] - newPos[i];
+					A = currVec.normalized().dot(newVec.normalized());
+					if (A > 1) {
+						A = 1;
+					}
+					if (A < -1) {
+						A = -1;
+					}
+					angle = acos(A);
+					rotationVector = currVec.cross3(newVec);
+					data_list[i+1].MyRotate(((CalcParentsTrans(i+1) * data_list[i+1].MakeTransd()).inverse() * rotationVector).head(3), angle/10);
+					updateTipPos();
+				}
+
+			}
+
+			void Viewer::rotateAroundY(bool clockwise) {
+				double dir = 0;
+				if (clockwise) {
+					dir = 0.1;
+				}
+				else {
+					dir = -0.1;
+				}
+				//Eigen::Matrix3d rot = Eigen::Matrix3d::Identity();
+				//for (int i = 1; i < selected_data_index; i++)
+				//	rot = data_list[i].GetRotation() * rot;
+				data().MyRotate(data().GetRotation().inverse() * Eigen::Vector3d(0, 0, 1), dir);
+				//Eigen::Vector3d angles=data().GetRotation().eulerAngles(2, 0, 2);
+				//angles(1) = angles(1) + dir;
+				//data().MyRotate(computeEulerMatrix(angles));
+				updateTipPos();
+			}
+
+			void Viewer::rotateAroundX(bool clockwise) {
+				double dir = 0;
+				if (clockwise) {
+					dir = 0.1;
+				}
+				else {
+					dir = -0.1;
+				}
+				Eigen::Matrix3d rot = Eigen::Matrix3d::Identity();
+				for (int i = 1; i < selected_data_index; i++)
+					rot = data_list[i].GetRotation() * rot;
+				data().MyRotate(data().GetRotation().inverse() * Eigen::Vector3d(1, 0, 0), dir);
+			}
+
+			Eigen::Matrix3d Viewer::computeEulerMatrix(Eigen::Vector3d angles) {
+				double phi, theta, ksi;
+				phi = angles.x();
+				theta = angles.y();
+				ksi = angles.z();
+				//Eigen::Matrix3d A1, A2, A3;
+				Eigen::Matrix3d A1(3, 3);
+				A1 <<
+					1, 0, 0,
+					0, cos(phi), -sin(phi),
+					0, sin(phi), cos(phi);
+				Eigen::Matrix3d A2(3, 3);
+				A2 <<
+					cos(theta), -sin(theta), 0,
+					sin(theta), cos(theta), 0,
+					0, 0, 1;
+				Eigen::Matrix3d A3(3, 3);
+				A3 <<
+					1, 0, 0,
+					0, cos(ksi), -sin(ksi),
+					0, sin(ksi), cos(ksi);
+
+				Eigen::Matrix3d A = A1 * A2 * A3;
+				return A;
+			}
+
+
+
 
 		} // end namespace
 	} // end namespace
