@@ -766,13 +766,27 @@ namespace igl
 				if (isPicked || selected_data_index == 0) {
 					printf("scene rotation matrix:\n");
 					rotMat = GetRotation();
+					for (int i = 0; i < 3; i++) {
+						printf("(%f\t%f\t%f)\n", rotMat(i, 0), rotMat(i, 1), rotMat(i, 2));
+					}
 				}
 				else {
 					printf("link %d rotation matrix:\n", selected_data_index);
 					rotMat = data().GetRotation();
-				}
-				for (int i = 0; i < 3; i++) {
-					printf("(%f\t%f\t%f)\n", rotMat(i, 0), rotMat(i, 1), rotMat(i, 2));
+					Eigen::Vector3d eu = rotMat.eulerAngles(2, 0, 2);
+					for (int i = 0; i < 3; i++) {
+						printf("(%f\t%f\t%f)\n", rotMat(i, 0), rotMat(i, 1), rotMat(i, 2));
+					}
+					Eigen::Matrix3d zMat = data().buildZEuler(eu[0]);
+					Eigen::Matrix3d xMat = data().buildXEuler(eu[0]);
+					printf("link %d Z-matrix:\n", selected_data_index);
+					for (int i = 0; i < 3; i++) {
+						printf("(%f\t%f\t%f)\n", zMat(i, 0), zMat(i, 1), zMat(i, 2));
+					}
+					printf("link %d  X-matrix:\n", selected_data_index);
+					for (int i = 0; i < 3; i++) {
+						printf("(%f\t%f\t%f)\n", xMat(i, 0), xMat(i, 1), xMat(i, 2));
+					}
 				}
 			}
 
@@ -780,10 +794,10 @@ namespace igl
 				for (size_t i = 0; i < tipPos.size(); i++)
 				{
 					if (i != 0) {
-						printf("tip position %d: (%f,%f,%f) \n", i, tipPos[i](0), tipPos[i](1), tipPos[i](2));
+						printf("tip position %d: (%f,%f,%f) \n", i, tipPos[i](0), tipPos[i](1), tipPos[i](2)-0.8);
 					}
 					else {
-						printf("base position: (%f,%f,%f) \n", tipPos[i](0), tipPos[i](1), tipPos[i](2));
+						printf("base position: (%f,%f,%f) \n", tipPos[i](0), tipPos[i](1), tipPos[i](2)-0.8);
 					}
 				}
 			}
@@ -793,11 +807,7 @@ namespace igl
 				Eigen::Vector3d c =data_list[1].GetCenter();
 				Eigen::Vector4d center(c.x(), c.y(), c.z(), 1);
 				Eigen::Matrix3d rot= Eigen::Matrix3d().Identity();
-
-				//Eigen::Vector3d O = (data_list[1].MakeTransd() *  center).head(3);
-
-				//Eigen::Vector4d O = (data_list[1].MakeTransd() * Eigen::Vector4d(0, 0, 0, 1));
-				Eigen::Vector4d O = data_list[1].MakeTransd()* center - Eigen::Vector4d(0, 0, 0.8, 0);
+				Eigen::Vector4d O = data_list[1].MakeTransd()* center - Eigen::Vector4d(0, 0, 0, 0);
 				tipPos[0] = O;
 				for (int i = 1; i < data_list.size(); i++) {
 					rot = rot * data_list[i].GetRotation() ;
@@ -807,10 +817,6 @@ namespace igl
 					O = O + Eigen::Vector4d(tmp(0), tmp(1), tmp(2), 0);
 					tipPos[i] = O;
 				}
-				//tipPos[0] = data_list[1].MakeTransd()* data_list[1].MakeTransd() * tipPos[1];
-				//for (int i = 1; i < data_list.size(); i++) {
-				//	tipPos[i] = CalcParentsTrans(i)* data_list[i].MakeTransd() * tipPos[i-1];
-				//}
 			}
 
 			void Viewer::updateDestPos() {
@@ -843,6 +849,19 @@ namespace igl
 					updateTipPos();
 				}
 
+			}
+
+			void Viewer::fixRotation() {
+				Eigen::Vector3d z(0, 0, 1);
+				for (size_t i = 1; i <= linksNum	; i++)
+				{
+					Eigen::Matrix3d rot = data_list[i].GetRotation();
+					Eigen::Vector3d eu = rot.eulerAngles(2, 0, 2);
+					data_list[i].MyRotate(z, -eu[2]);
+					if (i < linksNum) {
+						data_list[i + 1].RotateInSystem(z, eu[2]);
+					}
+				}
 			}
 
 			void Viewer::rotateAroundY(bool clockwise) {

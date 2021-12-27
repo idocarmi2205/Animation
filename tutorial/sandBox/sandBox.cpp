@@ -221,7 +221,7 @@ void SandBox::CCD() {
 	tipToDest = tipPos[linksNum] - destPos;
 	if (tipToDest.norm() < delta)
 		isActive = false;
-
+	fixRotation();
 }
 
 void SandBox::Fabrik() {
@@ -263,7 +263,7 @@ void SandBox::Fabrik() {
 	tipToDest = tipPos[linksNum] - destPos;
 	if (tipToDest.norm() < delta)
 		isActive = false;
-
+	fixRotation();
 }
 
 
@@ -272,7 +272,8 @@ void SandBox::Animate()
 {
 	if (isActive)
 	{
-		Fabrik();
+		//Fabrik();
+		CCD();
 
 	}
 }

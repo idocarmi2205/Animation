@@ -93,6 +93,7 @@ namespace igl
 				void updateTipPos();
 				void updateDestPos();
 				void updateLinksToTips(std::vector<Eigen::Vector4d> newPos);
+				void fixRotation();
 				Eigen::Matrix3d computeEulerMatrix(Eigen::Vector3d angles);
 
 				//number of links
