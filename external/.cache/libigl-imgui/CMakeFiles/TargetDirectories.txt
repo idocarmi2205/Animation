@@ -1,3 +1,0 @@
-C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/libigl-imgui/CMakeFiles/libigl-imgui-download.dir
-C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/libigl-imgui/CMakeFiles/ALL_BUILD.dir
-C:/Users/97254/Documents/Animation/EngineForAnimationCourse/external/.cache/libigl-imgui/CMakeFiles/ZERO_CHECK.dir
